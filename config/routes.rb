@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :projects
+
+  get 'export_projects', to: 'projects#export_projects'
+  get 'export_products', to: 'projects#export_products'
 end

@@ -1,0 +1,92 @@
+= form_for @project, url: {action:"create"} do |f|
+
+    %table
+        %tr
+            %td
+                Title
+            %td 
+                = f.text_field :title
+        %tr
+            %td
+                Unique Product ID
+            %td
+                = f.text_field :uniqueid            
+        %tr
+            %td
+                Intro
+            %td
+                = f.text_field :intro
+        %tr
+            %td
+                Main Image
+            %td
+                = f.text_field :mainimage
+        %tr
+            %td
+                Image 1
+            %td
+                = f.text_field :image1      
+        %tr
+            %td
+                Image 2
+            %td
+                = f.text_field :image2      
+        %tr
+            %td
+                Image 3
+            %td
+                = f.text_field :image3      
+        %tr
+            %td
+                Level
+            %td
+                = f.text_field :level      
+        %tr
+            %td
+                Time
+            %td
+                = f.text_field :time      
+        %tr
+            %td
+                How to Make
+            %td
+                = f.text_field :how_to_make      
+        %tr
+            %td
+                What You'll Need
+            %td
+                = f.text_field :what_youll_need      
+        %tr
+            %td
+                Tip
+            %td
+                = f.text_field :tip      
+        %tr
+            %td
+                Template
+            %td
+                = f.text_field :template      
+        %tr
+            %td
+                Tags
+            %td
+                = f.text_field :tags      
+        %tr
+            %td
+                Supervision
+            %td
+                = f.radio_button :supervision, "yes"
+                = f.label :supervision_yes, "Yes"
+            %td    
+                = f.radio_button :supervision, "no"
+                = f.label :supervision_no, "No"
+        %tr
+            %td
+                Categories
+            %td
+                = f.text_field :categories            
+        %tr
+            %td
+                Submit
+            %td
+                = f.submit "Create"
