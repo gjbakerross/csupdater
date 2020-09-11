@@ -1,0 +1,6 @@
+Product Upload
+
+<%= form_with model: @product do |f| %>
+  <%= f.file_field :product_csv %>
+  <%= f.submit %>
+<% end %>

@@ -6,9 +6,19 @@ class Project < ApplicationRecord
     has_many_attached :step_images
 
     before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus, :save_main_image_link, :save_step_images
+
+    validates :main_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+                                                        dimension: { width: { min: 800, max: 1000 },
+                                                                    height: { min: 600, max: 1000 }}
+                                                                    
+    validates :step_images, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+                                     dimension: { width: { min: 800, max: 1000 },
+                                                  height: { min: 600, max: 1000 }, message: 'is not given between dimension' }
     
     def add_template_url
-        self.template = "www.bakerross.co.uk/patticrafts/" + self.template
+        if self.template.present?
+            self.template = "https://www.bakerross.co.uk/patticrafts/" + self.template
+        end
     end
     
     def add_country_to_id
@@ -16,8 +26,10 @@ class Project < ApplicationRecord
     end
     
     def format_instructions
-        instructions = self.format_list(self.how_to_make, "ordered","\n")
-        self.how_to_make = instructions
+        if self.how_to_make.present?
+            instructions = self.format_list(self.how_to_make, "ordered","\n")
+            self.how_to_make = instructions
+        end
     end
 
     def format_skus
@@ -69,9 +81,11 @@ class Project < ApplicationRecord
     end
 
     def save_step_images
-        self.image1 = self.step_images[0].filename.to_s
-        self.image2 = self.step_images[1].filename.to_s
-        self.image3 = self.step_images[2].filename.to_s
+        if self.step_images.exists?
+            self.image1 = self.step_images[0].filename.to_s
+            self.image2 = self.step_images[1].filename.to_s
+            self.image3 = self.step_images[2].filename.to_s
+        end
     end
 
     def self.to_project_csv
