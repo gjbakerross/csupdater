@@ -5,7 +5,8 @@
             %td
                 Title
             %td 
-                = f.text_field :title
+                = f.text_field :title 
+                = f.label :title, "Full Title"
         %tr
             %td
                 Unique Product ID
@@ -20,22 +21,12 @@
             %td
                 Main Image
             %td
-                = f.text_field :mainimage
+                = f.file_field :main_image
         %tr
             %td
-                Image 1
+                Step Images
             %td
-                = f.text_field :image1      
-        %tr
-            %td
-                Image 2
-            %td
-                = f.text_field :image2      
-        %tr
-            %td
-                Image 3
-            %td
-                = f.text_field :image3      
+                = f.file_field :step_images, multiple: true      
         %tr
             %td
                 Level
@@ -50,7 +41,7 @@
             %td
                 How to Make
             %td
-                = f.text_field :how_to_make      
+                = f.text_area :how_to_make      
         %tr
             %td
                 What You'll Need
@@ -87,6 +78,18 @@
                 = f.text_field :categories            
         %tr
             %td
+                Products
+            %td
+                = f.text_field :products            
+        %tr
+            %td
+                Core Products
+            %td
+                = f.text_field :core_products            
+        %tr
+            %td
                 Submit
             %td
                 = f.submit "Create"
+
+= link_to 'Back', projects_path

@@ -1,7 +1,11 @@
 class Project < ApplicationRecord
     require 'csv'
+    include Rails.application.routes.url_helpers
 
-    before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus
+    has_one_attached :main_image
+    has_many_attached :step_images
+
+    before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus, :save_main_image_link, :save_step_images
     
     def add_template_url
         self.template = "www.bakerross.co.uk/patticrafts/" + self.template
@@ -21,7 +25,7 @@ class Project < ApplicationRecord
         shoppinglist=[]
         skulist.each do |item|
             product = Product.find_by_sku(item)
-            shoppinglist.push("<a href=\"#{product.url}\">#{product.title}")
+            shoppinglist.push("<a href=\"#{product.url}\">#{product.title}</a>")
         end
         
         if self.what_youll_need.present?
@@ -60,6 +64,16 @@ class Project < ApplicationRecord
         return outcome
     end
 
+    def save_main_image_link
+        self.mainimage = self.main_image.filename.to_s
+    end
+
+    def save_step_images
+        self.image1 = self.step_images[0].filename.to_s
+        self.image2 = self.step_images[1].filename.to_s
+        self.image3 = self.step_images[2].filename.to_s
+    end
+
     def self.to_project_csv
         attributes = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list what_youll_need tip template tags supervision products categories)
     
@@ -73,7 +87,7 @@ class Project < ApplicationRecord
     end
 
     def self.to_product_csv
-        attributes = %w(uniqueid title products)
+        attributes = %w(uniqueid title products core_products)
     
         CSV.generate(headers: true) do |csv|
           csv << attributes
@@ -83,5 +97,25 @@ class Project < ApplicationRecord
           end
         end
     end
+
+    # def send_to_wordpress
+    #     url = 'http://bakerross-wp.thepixel.host/creative-station/wp-json/wp/v2/media'
+    #     username = Rails.application.credentials.dig(:wordpress, :user) 
+    #     password = Rails.application.credentials.dig(:wordpress, :password) 
+    #     conn = Faraday.new(
+    #         url: "#{url}"
+    #         headers: {
+    #             'Content-Disposition' => 'form-data; filename="example.jpg"'
+    #             'Content-Type' => 'image/jpeg'
+    #         }
+    #     ) do |f|
+    #         f.request :multipart
+    #         f.request :url_encoded
+    #     end
+    #     conn.basic_auth(ActiveSupport::Base64.encode64(username)},ActiveSupport::Base64.encode64(password))
+    #     mi = Faraday::UploadIO.new(url_for(self.main_image),"image/jpeg")
+    #     payload = {:file => file}
+    #     conn.post('/', payload)
+    # end
 
 end

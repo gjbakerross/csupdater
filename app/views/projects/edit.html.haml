@@ -1,0 +1,31 @@
+= form_for @project, url: {action:"edit"} do |f|
+
+    %table
+        %tr
+            %td
+                Title
+            %td 
+                = f.text_field :title
+        %tr
+            %td
+                Unique Product ID
+            %td
+                = f.text_field :uniqueid             
+        %tr
+            %td
+                Products
+            %td
+                = f.text_field :products            
+        %tr
+            %td
+                Core Products
+            %td
+                = f.text_field :core_products            
+        %tr
+            %td
+                Submit
+            %td
+                = f.submit "Create"
+
+
+= link_to 'Back', projects_path
