@@ -23,6 +23,9 @@ gem "haml"
 gem "azure-storage-blob", require: false
 gem 'active_storage_validations'
 gem 'mini_magick', '>= 4.9.5'
+gem 'bootstrap'
+gem 'jquery-rails'
+gem 'rubyzip'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

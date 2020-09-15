@@ -1,31 +1,33 @@
-= form_for @project, url: {action:"edit"} do |f|
+.container-fluid
 
-    %table
-        %tr
-            %td
-                Title
-            %td 
-                = f.text_field :title
-        %tr
-            %td
-                Unique Product ID
-            %td
-                = f.text_field :uniqueid             
-        %tr
-            %td
-                Products
-            %td
-                = f.text_field :products            
-        %tr
-            %td
-                Core Products
-            %td
-                = f.text_field :core_products            
-        %tr
-            %td
-                Submit
-            %td
-                = f.submit "Create"
+    %h1{:class => "display-3 mx-auto p-4"} Edit associated Products
+    = form_for @project, url: {action:"edit"} do |f|
+
+        %table{:class => "w-100"}
+            %tr{:class => "form-group"}
+                %td
+                    %h6 Title
+                %td 
+                    = f.text_field :title
+            %tr{:class => "form-group"}
+                %td
+                    %h6 Unique Product ID
+                %td
+                    = f.text_field :uniqueid             
+            %tr{:class => "form-group"}
+                %td
+                    %h6 Products
+                %td
+                    = f.text_field :products            
+            %tr{:class => "form-group"}
+                %td
+                    %h6 Core Products
+                %td
+                    = f.text_field :core_products            
+            %tr{:class => "form-group"}
+                %td
+                %td
+                    = f.submit "Save", class: "btn btn-primary" 
 
 
-= link_to 'Back', projects_path
+    = link_to 'Back', projects_path, :class => "text-primary h5" 

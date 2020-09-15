@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
 
+    validates :sku, uniqueness: true
+
     require 'csv'
     def self.import_products (csv)
         csv_text = File.read(csv)

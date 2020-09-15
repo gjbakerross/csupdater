@@ -24,6 +24,7 @@ class ProjectsController < ApplicationController
   def export_projects
     @projects = Project.where(created_at:(Export.last.created_at)...Time.now)
     send_data @projects.to_project_csv, filename: "projects-#{Date.today}.csv"
+    download_images(@projects)
    Export.create
   end
 
@@ -82,8 +83,41 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title,:uniqueid,:intro, :main_image,:template, :supervision, :products, :core_products, :categories, :level,:time,:how_to_make, :what_youll_need, :tip, step_images:[])
+      params.require(:project).permit(:title,:uniqueid,:intro, :main_image,:template, :supervision, :products, :core_products, :categories, :level,:time,:how_to_make, :what_youll_need, :tip,:tags, step_images:[])
     end
+
+    
+  def download_images(projects)
+    tmp_project_folder = "tmp/archive_#{Date.today.to_s}"
+      projects.each do |project|
+          directory_length_same_as_images = Dir["#{tmp_project_folder}/*"].length == (project.step_images.length)
+          step = project.step_images 
+          FileUtils.mkdir_p(tmp_project_folder) unless Dir.exists?(tmp_project_folder) 
+          step.each do |step_image|
+              step_filename = step_image.filename.to_s
+              create_tmp_folder_and_store_documents(step_image,tmp_project_folder,step_filename) unless directory_length_same_as_images
+              create_zip_from_tmp_folder(tmp_project_folder, step_filename) unless directory_length_same_as_images
+          end
+          mainimagefilename = project.main_image.filename.to_s
+          create_tmp_folder_and_store_documents(project.main_image,tmp_project_folder,mainimagefilename) 
+          create_zip_from_tmp_folder(tmp_project_folder, mainimagefilename) 
+          send_file(Rails.root.join("#{tmp_project_folder}.zip"), :type => 'application/zip', :filename => "Files.zip", :disposition => 'attachment')
+      end
+      
+  end
+
+  def create_tmp_folder_and_store_documents(document, tmp_project_folder, filename)
+      File.open(File.join(tmp_project_folder, filename), 'wb') do |file|
+        # As per georgeclaghorn in comment ;)
+       document.download { |chunk| file.write(chunk) }
+      end
+    end
+    
+  def create_zip_from_tmp_folder(tmp_project_folder, filename)
+      Zip::File.open("#{tmp_project_folder}.zip", Zip::File::CREATE) do |zf|
+        zf.add(filename, "#{tmp_project_folder}/#{filename}")
+      end
+  end
 
       
 end

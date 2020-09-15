@@ -1,5 +1,7 @@
 class Project < ApplicationRecord
     require 'csv'
+    require 'zip'
+    require 'rubygems'
     include Rails.application.routes.url_helpers
 
     has_one_attached :main_image
@@ -7,13 +9,15 @@ class Project < ApplicationRecord
 
     before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus, :save_main_image_link, :save_step_images
 
-    validates :main_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
-                                                        dimension: { width: { min: 800, max: 1000 },
-                                                                    height: { min: 600, max: 1000 }}
+    validates :main_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+                                                        # dimension: { width: { min: 800, max: 1000 },
+                                                        #             height: { min: 600, max: 1000 }}
                                                                     
-    validates :step_images, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
-                                     dimension: { width: { min: 800, max: 1000 },
-                                                  height: { min: 600, max: 1000 }, message: 'is not given between dimension' }
+    validates :step_images, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+                                    #  dimension: { width: { min: 800, max: 1000 },
+                                    #               height: { min: 600, max: 1000 }, message: 'is not given between dimension' }
+
+    validates :uniqueid, uniqueness: true
     
     def add_template_url
         if self.template.present?
@@ -81,7 +85,7 @@ class Project < ApplicationRecord
     end
 
     def save_step_images
-        if self.step_images.exists?
+        if self.step_images.attached?
             self.image1 = self.step_images[0].filename.to_s
             self.image2 = self.step_images[1].filename.to_s
             self.image3 = self.step_images[2].filename.to_s
@@ -111,7 +115,9 @@ class Project < ApplicationRecord
           end
         end
     end
+  
 
+    
     # def send_to_wordpress
     #     url = 'http://bakerross-wp.thepixel.host/creative-station/wp-json/wp/v2/media'
     #     username = Rails.application.credentials.dig(:wordpress, :user) 
