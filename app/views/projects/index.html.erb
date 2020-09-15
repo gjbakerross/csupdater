@@ -1,6 +1,8 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
 
-<h1 class="display-3">Projects</h1>
+<p id="notice" class="alert"><%= notice %></p>
+
+<h1 class="display-3 mb-3 mx-auto">Projects</h1>
 
 <table>
   <thead>
@@ -12,8 +14,9 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
+        <td><%= project.title%>
         <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Edit associated products', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -22,6 +25,7 @@
 
 <br>
 
-<%= link_to 'New Project', new_project_path, :class => "text-primary h5" %>
+<%= link_to 'Add a new project', new_project_path, :class => "text-primary h5" %>
 
 
+</div>

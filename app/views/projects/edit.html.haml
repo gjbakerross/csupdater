@@ -8,22 +8,22 @@
                 %td
                     %h6 Title
                 %td 
-                    = f.text_field :title
+                    = f.text_field :title, :class => "form-control", :readonly => true 
             %tr{:class => "form-group"}
                 %td
                     %h6 Unique Product ID
                 %td
-                    = f.text_field :uniqueid             
+                    = f.text_field :uniqueid, :class => "form-control", :readonly => true         
             %tr{:class => "form-group"}
                 %td
                     %h6 Products
                 %td
-                    = f.text_field :products            
+                    = f.text_field :products, :class => "form-control"            
             %tr{:class => "form-group"}
                 %td
                     %h6 Core Products
                 %td
-                    = f.text_field :core_products            
+                    = f.text_field :core_products, :class => "form-control"               
             %tr{:class => "form-group"}
                 %td
                 %td
