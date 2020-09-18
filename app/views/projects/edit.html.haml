@@ -1,6 +1,7 @@
-.container-fluid
+.container
 
-    %h1{:class => "display-3 mx-auto p-4"} Edit associated Products
+    = image_tag("default-creative-station.jpg", class: "mx-auto pt-4")
+    %h1{:class => "display-4 mx-auto py-4"} Edit associated Products
     = form_for @project, url: {action:"edit"} do |f|
 
         %table{:class => "w-100"}

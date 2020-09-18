@@ -6,6 +6,7 @@ class Project < ApplicationRecord
 
     has_one_attached :main_image
     has_many_attached :step_images
+    belongs_to :language
 
     before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus, :save_main_image_link, :save_step_images
 
@@ -26,7 +27,7 @@ class Project < ApplicationRecord
     end
     
     def add_country_to_id
-        self.uniqueid = self.uniqueid + "_en"
+        self.uniqueid = self.uniqueid + "_#{self.language.code}"
     end
     
     def format_instructions
@@ -94,12 +95,15 @@ class Project < ApplicationRecord
 
     def self.to_project_csv
         attributes = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list what_youll_need tip template tags supervision products categories)
-    
+        headers = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list what_youll_need tip template tags supervision products categories, language)
         CSV.generate(headers: true) do |csv|
-          csv << attributes
+          csv << headers
     
           all.each do |project|
-            csv << attributes.map{ |attr| project.send(attr) }
+            data = attributes.map{ |attr| project.send(attr) }
+            # byebug
+            data << project.language.code 
+            csv <<  data
           end
         end
     end

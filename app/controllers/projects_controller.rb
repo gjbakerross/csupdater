@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   def export_projects
     @projects = Project.where(created_at:(Export.last.created_at)...Time.now)
     send_data @projects.to_project_csv, filename: "projects-#{Date.today}.csv"
-    download_images(@projects)
+    # download_images(@projects)
    Export.create
   end
 
@@ -83,7 +83,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title,:uniqueid,:intro, :main_image,:template, :supervision, :products, :core_products, :categories, :level,:time,:how_to_make, :what_youll_need, :tip,:tags, step_images:[])
+      params.require(:project).permit(:title,:uniqueid,:intro, :main_image,:template, :supervision, :products, :core_products, :categories, :level,:time,:how_to_make, :what_youll_need, :tip,:tags, :language_id, step_images:[])
     end
 
     

@@ -1,43 +1,54 @@
-.container-fluid
+.container
 
-   %h1{:class => "display-3 mx-auto p-4"}
+   = image_tag("default-creative-station.jpg", class: "mx-auto pt-4")
+   %h1{:class => "display-4 mx-auto py-4"}
       = @project.title
+      %small{:class => "text-muted"}
+         = @project.uniqueid
+  
    %p 
-      %h3 Intro: 
+      %h4 Intro: 
       = @project.intro
-   %p
-      %h3 Categories:
-      = @project.categories
-   %p
-      %h3 Tags:
-      = @project.tags
    %p 
-      %h3 How to Make   
+      %h4 Language: 
+      = @project.language.name
+   %p
+      %h4 Categories:
+      - @project.categories.split(",").each do |c| 
+         = c
+         %br
+   %p
+      %h4 Tags:
+      - @project.tags.split(",").each do |t| 
+         = t
+         %br
+   %p 
+      %h4 How to Make:   
       != @project.how_to_make 
    %p 
-      %h3 Tip   
+      %h4 Tip:   
       = @project.tip 
    %p
-      %h3 Shopping List   
+      %h4 Shopping List:   
       != @project.shopping_list
    %p 
-      %h3 What You'll Need
+      %h4 What You'll Need:
       != @project.what_youll_need
    %p 
-      %h3 Level
+      %h4 Level:
       = @project.level
    %p 
-      %h3 Time
+      %h4 Time:
       = @project.time
    %p 
-      %h3 Main Image
+      %h4 Main Image:
       = image_tag(@project.main_image, width: 300)
    %p 
-      %h3 Step Images
+      %h4 Step Images:
    - @project.step_images.each do |img|
       %p
          = image_tag(img, width:300)
    %p
-      = link_to 'Edit', edit_project_path(@project), class: "text-primary h5"
+      = link_to 'Edit Products', edit_project_path(@project), class: "text-primary h5"
    %p
       = link_to 'Back', projects_path, class: "text-primary h5"

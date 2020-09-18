@@ -1,7 +1,23 @@
-.container-fluid
+.container
 
-  %h1{:class => "display-3 mx-auto p-4"} Product Upload
+  = image_tag("default-creative-station.jpg", class: "mx-auto pt-4")
+  
+  %h1{:class => "display-4 mx-auto py-4"} Product Upload
 
   = form_with model: @product do |f|
-    = f.file_field :product_csv, class: "form-control-file pb-4"  
-    = f.submit "Save", class: "btn btn-primary" 
+    %table{:class => "w-100"}
+      %tr{:class => "form-group"}
+        %td
+          %h6 Product File
+        %td 
+          = f.file_field :product_csv, class: "form-control-file"
+      %tr
+        %td  
+      %tr{:class => "form-group"}
+        %td
+        %td
+          = f.submit "Save", class: "btn btn-primary" 
+
+  %br
+  %br
+  = link_to 'All projects', projects_path, :class => "text-primary h5"   

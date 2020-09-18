@@ -1,6 +1,8 @@
-.container-fluid
+.container
 
-    %h1{:class => "display-3 mx-auto p-4"} New Project
+    = image_tag("default-creative-station.jpg", class: "mx-auto pt-4")
+
+    %h1{:class => "display-4 mx-auto py-4"} New Project
 
 
     = form_for @project, url: {action:"create"} do |f|
@@ -22,6 +24,12 @@
                 %td
                     = f.text_field :intro, :class => "form-control" 
             %tr
+                %td{:class => "form-group"}
+                    %h6 Language
+                %td
+                    = f.collection_select(:language_id, Language.all, :id, :name, {}, {:class => "form-control"})
+            %tr
+
                 %td{:class => "form-group"}
                     %h6 Main Image
                 %td
@@ -49,23 +57,14 @@
             %tr{:class => "form-group"}
                 %td
                     %h6 What You'll Need
+                    (non BR items)
                 %td
                     = f.text_area :what_youll_need, placeholder: "Separate by comma (no spaces)", :class => "form-control"      
             %tr
                 %td
                     %h6 Tip
                 %td
-                    = f.text_field :tip, :class => "form-control"       
-            %tr
-                %td
-                    %h6 Template
-                %td
-                    = f.text_field :template, :class => "form-control"       
-            %tr
-                %td
-                    %h6 Tags
-                %td
-                    = f.text_field :tags, :class => "form-control"       
+                    = f.text_field :tip, :class => "form-control"  
             %tr{:class => "form-group"}
                 %td
                     %h6 Supervision
@@ -73,12 +72,22 @@
                     = f.radio_button :supervision, "yes", :class => "form-check-input"
                     = f.label :supervision_yes, "Yes", :class => "form-check-label mr-5"    
                     = f.radio_button :supervision, "no", :class => "form-check-input"
-                    = f.label :supervision_no, "No", :class => "form-check-label"
+                    = f.label :supervision_no, "No", :class => "form-check-label"     
+            %tr
+                %td
+                    %h6 Template
+                %td
+                    = f.text_field :template, placeholder: "Filename (including extension)", :class => "form-control"       
+            %tr
+                %td
+                    %h6 Tags
+                %td
+                    = f.text_field :tags, placeholder: "Separate by comma (no spaces)", :class => "form-control"       
             %tr
                 %td
                     %h6 Categories
                 %td
-                    = f.text_field :categories, :class => "form-control"             
+                    = f.text_field :categories, placeholder: "Separate by comma (no spaces)", :class => "form-control"             
             %tr
                 %td
                     %h6 Products
