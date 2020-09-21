@@ -1,6 +1,17 @@
 <div class="container">
 
-<%= image_tag("default-creative-station.jpg", class: "mx-auto pt-4")%>
+<%= image_tag("default-creative-station.jpg", class: "mx-auto my-4")%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse">  
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item navbar-text"><%= link_to 'Add a new project', new_project_path, :class => "nav-link h5" %></li>
+      <li class="nav-item navbar-text"><%= link_to 'Upload new product data', products_path, :class => "nav-link h5" %></li>
+      <li class="nav-item navbar-text"><%= link_to 'Export projects', export_projects_url, :class => "nav-link h5"%></li>
+      <li class="nav-item navbar-text"><%= link_to 'Export products', export_products_url, :class => "nav-link h5"%></li>
+    </ul>
+  </div>
+</nav>
+
 
 <p id="notice" class="alert"><%= notice %></p>
 
@@ -19,9 +30,6 @@
 
 <br>
 
-<p><%= link_to 'Add a new project', new_project_path, :class => "text-primary h5" %></p>
-<p><%= link_to 'Upload new product data', products_path, :class => "text-primary h5" %></p>
-<p><%= link_to 'Export projects', export_projects_url, :class => "text-primary h5"%>
-<p><%= link_to 'Export products', export_products_url, :class => "text-primary h5"%>
+
 
 </div>

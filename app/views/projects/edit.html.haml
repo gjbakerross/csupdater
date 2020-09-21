@@ -4,7 +4,7 @@
     %h1{:class => "display-4 mx-auto py-4"} Edit associated Products
     = form_for @project, url: {action:"edit"} do |f|
 
-        %table{:class => "w-100"}
+        %table{:class => "w-100", :style => "border-collapse:separate; border-spacing:0 1rem"}
             %tr{:class => "form-group"}
                 %td
                     %h6 Title
@@ -20,11 +20,11 @@
                     %h6 Products
                 %td
                     = f.text_field :products, :class => "form-control"            
-            %tr{:class => "form-group"}
+            %tr{:class => "form-group "}
                 %td
                     %h6 Core Products
                 %td
-                    = f.text_field :core_products, :class => "form-control"               
+                    = f.text_field :core_products, :class => "form-control"         
             %tr{:class => "form-group"}
                 %td
                 %td

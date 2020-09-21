@@ -7,8 +7,8 @@
 
     = form_for @project, url: {action:"create"} do |f|
 
-        %table{:class => "w-100"}
-            %tr{:class => "form-group"}
+        %table{:class => "w-100", :style => "border-collapse:separate; border-spacing:0 1rem"}
+            %tr{:class => "form-group pb-5"}
                 %td
                     %h6 Title
                 %td 
@@ -17,17 +17,27 @@
                 %td
                     %h6 Unique Product ID
                 %td
-                    = f.text_field :uniqueid, :class => "form-control"             
+                    = f.text_field :uniqueid, :class => "form-control", placeholder: "Don't include country code (ie: _en)"   
+            %tr
+                %td
+                    %h6 Categories
+                %td
+                    = f.text_field :categories, placeholder: "Separate by comma (no spaces)", :class => "form-control"  
+            %tr
+                %td
+                    %h6 Tags
+                %td
+                    = f.text_field :tags, placeholder: "Separate by comma (no spaces)", :class => "form-control"                         
+            %tr
+                %td{:class => "form-group"}
+                    %h6 Language
+                %td
+                    = f.collection_select(:language_id, Language.all, :id, :name, {}, {:class => "form-control"})            
             %tr
                 %td
                     %h6 Intro
                 %td
                     = f.text_field :intro, :class => "form-control" 
-            %tr
-                %td{:class => "form-group"}
-                    %h6 Language
-                %td
-                    = f.collection_select(:language_id, Language.all, :id, :name, {}, {:class => "form-control"})
             %tr
 
                 %td{:class => "form-group"}
@@ -59,7 +69,7 @@
                     %h6 What You'll Need
                     (non BR items)
                 %td
-                    = f.text_area :what_youll_need, placeholder: "Separate by comma (no spaces)", :class => "form-control"      
+                    = f.text_field :what_youll_need, placeholder: "Separate by comma (no spaces)", :class => "form-control"      
             %tr
                 %td
                     %h6 Tip
@@ -77,27 +87,17 @@
                 %td
                     %h6 Template
                 %td
-                    = f.text_field :template, placeholder: "Filename (including extension)", :class => "form-control"       
-            %tr
-                %td
-                    %h6 Tags
-                %td
-                    = f.text_field :tags, placeholder: "Separate by comma (no spaces)", :class => "form-control"       
-            %tr
-                %td
-                    %h6 Categories
-                %td
-                    = f.text_field :categories, placeholder: "Separate by comma (no spaces)", :class => "form-control"             
+                    = f.text_field :template, placeholder: "Filename (including extension)", :class => "form-control"            
             %tr
                 %td
                     %h6 Products
                 %td
-                    = f.text_field :products, placeholder: "Separate by comma (no spaces)", :class => "form-control"             
+                    = f.text_field :products, placeholder: "SKUs only. Separate by comma (no spaces)", :class => "form-control"             
             %tr
                 %td
                     %h6 Core Products
                 %td
-                    = f.text_field :core_products,placeholder: "Separate by comma (no spaces)", :class => "form-control"             
+                    = f.text_field :core_products,placeholder: "SKUs only. Separate by comma (no spaces)", :class => "form-control"             
             %tr
                 %td
                     

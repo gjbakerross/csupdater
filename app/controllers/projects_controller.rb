@@ -108,7 +108,6 @@ class ProjectsController < ApplicationController
 
   def create_tmp_folder_and_store_documents(document, tmp_project_folder, filename)
       File.open(File.join(tmp_project_folder, filename), 'wb') do |file|
-        # As per georgeclaghorn in comment ;)
        document.download { |chunk| file.write(chunk) }
       end
     end
