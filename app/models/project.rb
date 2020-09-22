@@ -41,8 +41,10 @@ class Project < ApplicationRecord
         skulist = self.products.split(",")
         shoppinglist=[]
         skulist.each do |item|
-            product = Product.find_by_sku(item)
-            shoppinglist.push("<a href=\"#{product.url}\">#{product.title}</a>")
+            product = Product.find_by_sku(item) 
+            if product
+                shoppinglist.push("<a href=\"#{product.url}\">#{product.title}</a>")
+            end
         end
         
         if self.what_youll_need.present?
@@ -50,7 +52,9 @@ class Project < ApplicationRecord
             shoppinglist += "," + self.what_youll_need
             self.add_what_youll_need
         end
-        self.shopping_list = self.format_list(shoppinglist ,"unordered",",")    
+        if !shoppinglist.empty?
+            self.shopping_list = self.format_list(shoppinglist ,"unordered",",") 
+        end   
     end
 
     def add_what_youll_need

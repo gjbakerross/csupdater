@@ -1,8 +1,8 @@
 .container
 
-    = image_tag("default-creative-station.jpg", class: "mx-auto pt-4")
+    = image_tag("default-creative-station.jpg", class: "mx-auto pt-4 d-block")
     %h1{:class => "display-4 mx-auto py-4"} Edit associated Products
-    = form_for @project, url: {action:"edit"} do |f|
+    = form_for @project, url: {action:"update"} do |f|
 
         %table{:class => "w-100", :style => "border-collapse:separate; border-spacing:0 1rem"}
             %tr{:class => "form-group"}
