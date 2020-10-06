@@ -8,13 +8,13 @@ class Project < ApplicationRecord
     has_many_attached :step_images
     belongs_to :language
 
-    before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus, :save_main_image_link, :save_step_images
+    before_create :add_template_url, :add_country_to_id, :format_instructions, :format_skus, :save_main_image_link, :save_step_images, :format_youtube
 
-    validates :main_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+    validates :main_image, content_type: ['image/png', 'image/jpg', 'image/jpeg']
                                                         # dimension: { width: { min: 800, max: 1000 },
                                                         #             height: { min: 600, max: 1000 }}
                                                                     
-    validates :step_images, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+    validates :step_images, content_type: ['image/png', 'image/jpg', 'image/jpeg']
                                     #  dimension: { width: { min: 800, max: 1000 },
                                     #               height: { min: 600, max: 1000 }, message: 'is not given between dimension' }
 
@@ -25,6 +25,13 @@ class Project < ApplicationRecord
             self.template = "https://www.bakerross.co.uk/patticrafts/" + self.template
         end
     end
+
+    def format_youtube
+        if self.youtube.present?
+            self.youtube = "https://www.youtube.com/embed/" + self.youtube
+        end
+    end
+
     
     def add_country_to_id
         self.uniqueid = self.uniqueid + "_#{self.language.code}"
@@ -86,20 +93,29 @@ class Project < ApplicationRecord
     end
 
     def save_main_image_link
-        self.mainimage = self.main_image.filename.to_s
+        if self.main_image.attached?
+            self.mainimage = self.main_image.filename.to_s
+        end
     end
 
     def save_step_images
         if self.step_images.attached?
-            self.image1 = self.step_images[0].filename.to_s
-            self.image2 = self.step_images[1].filename.to_s
-            self.image3 = self.step_images[2].filename.to_s
+                if !self.step_images[0].filename.to_s.empty?
+                    self.image1 = self.step_images[0].filename.to_s
+                end
+                if !self.step_images[1].filename.to_s.empty?
+                    self.image2 = self.step_images[1].filename.to_s
+                end
+                if !self.step_images[2].filename.to_s.empty?
+                    self.image3 = self.step_images[2].filename.to_s
+                end
         end
     end
 
     def self.to_project_csv
-        attributes = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list what_youll_need tip template tags supervision products categories)
-        headers = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list what_youll_need tip template tags supervision products categories, language)
+        attributes = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list youtube what_youll_need tip template tags supervision products categories)
+        headers = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list youtube what_youll_need tip template tags supervision products categories language)
+        # byebug
         CSV.generate(headers: true) do |csv|
           csv << headers
     
@@ -108,6 +124,7 @@ class Project < ApplicationRecord
             # byebug
             data << project.language.code 
             csv <<  data
+            # byebug
           end
         end
     end

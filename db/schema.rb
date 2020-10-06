@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_081847) do
+ActiveRecord::Schema.define(version: 2020_09_24_081314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_09_17_081847) do
     t.string "categories"
     t.string "core_products"
     t.bigint "language_id"
+    t.string "youtube"
     t.index ["language_id"], name: "index_projects_on_language_id"
   end
 

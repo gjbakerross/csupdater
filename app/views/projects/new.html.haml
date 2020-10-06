@@ -17,7 +17,7 @@
                 %td
                     %h6 Unique Product ID
                 %td
-                    = f.text_field :uniqueid, :class => "form-control", placeholder: "Don't include country code (ie: _en)"   
+                    = f.text_field :uniqueid, :class => "form-control", placeholder: "Don't include language code (ie: _en)"   
             %tr
                 %td
                     %h6 Categories
@@ -49,6 +49,11 @@
                     %h6 Step Images
                 %td
                     = f.file_field :step_images, multiple: true, :class => "form-control-file"     
+            %tr
+                %td{:class => "form-group"}
+                    %h6 Youtube Link
+                %td
+                    = f.text_field :youtube, placeholder: "Link string only (ie: rBRK19YtKFk)", :class => "form-control"      
             %tr
                 %td
                     %h6 Level
