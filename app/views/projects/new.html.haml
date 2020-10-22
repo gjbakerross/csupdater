@@ -10,17 +10,23 @@
         %table{:class => "w-100", :style => "border-collapse:separate; border-spacing:0 1rem"}
             %tr{:class => "form-group pb-5"}
                 %td
-                    %h6 Title
+                    %h6 
+                        Title 
+                        %span{ :style => "color: red"} &#x2a;
                 %td 
                     = f.text_field :title, :class => "form-control" 
             %tr
                 %td
-                    %h6 Unique Product ID
+                    %h6 
+                        Unique Product ID
+                        %span{ :style => "color: red"} &#x2a;
                 %td
                     = f.text_field :uniqueid, :class => "form-control", placeholder: "Don't include language code (ie: _en)"   
             %tr
                 %td
-                    %h6 Categories
+                    %h6 
+                        Categories
+                        %span{ :style => "color: red"} &#x2a;
                 %td
                     = f.text_field :categories, placeholder: "Separate by comma (no spaces)", :class => "form-control"  
             %tr
@@ -35,18 +41,24 @@
                     = f.collection_select(:language_id, Language.all, :id, :name, {}, {:class => "form-control"})            
             %tr
                 %td
-                    %h6 Intro
+                    %h6 
+                        Intro
+                        %span{ :style => "color: red"} &#x2a;
                 %td
                     = f.text_field :intro, :class => "form-control" 
             %tr
 
                 %td{:class => "form-group"}
-                    %h6 Main Image
+                    %h6 
+                        Main Image
+                        %span{ :style => "color: red"} &#x2a;
                 %td
                     = f.file_field :main_image, :class => "form-control-file"
             %tr
                 %td{:class => "form-group"}
-                    %h6 Step Images
+                    %h6 
+                        Step Images
+                        %span{ :style => "color: red"} &#x2a;
                 %td
                     = f.file_field :step_images, multiple: true, :class => "form-control-file"     
             %tr

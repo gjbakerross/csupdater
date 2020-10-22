@@ -112,6 +112,14 @@ class Project < ApplicationRecord
         end
     end
 
+    def self.search(search)
+        if search
+            project = Project.where("LOWER(title) LIKE LOWER(?)", "%#{search}%")
+        else
+            Project.all
+        end    
+    end
+
     def self.to_project_csv
         attributes = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list youtube what_youll_need tip template tags supervision products categories)
         headers = %w(uniqueid title intro mainimage image1 image2 image3 level time how_to_make shopping_list youtube what_youll_need tip template tags supervision products categories language)

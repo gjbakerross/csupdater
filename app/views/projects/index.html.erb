@@ -21,7 +21,12 @@
 <p id="notice" class="alert"><%= notice %></p>
 
 <h1 class="display-4 mb-3 mx-auto">All Projects</h1>
-
+<div style="float:right" class="mb-3">
+  <%= form_tag(projects_path, method: :get) do %>
+    <%= text_field_tag(:search, params[:search])%>
+    <%= submit_tag ("Search")%> 
+  <% end %> 
+</div>     
 <table class="table table-striped">
   <tbody>
     <% @projects.each do |project| %>
@@ -35,6 +40,6 @@
 
 <br>
 
-
+<%= link_to 'All Projects', projects_path, class: "text-primary h5" %>
 
 </div>
