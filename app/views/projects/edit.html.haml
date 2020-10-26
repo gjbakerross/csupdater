@@ -17,14 +17,16 @@
                     = f.text_field :uniqueid, :class => "form-control", :readonly => true         
             %tr{:class => "form-group "}
                 %td
-                    %h6 Core Products
+                    %h6 Core Products (SKUs)
                 %td
                     = f.text_field :core_products, :class => "form-control", placeholder: "Essential product. Will hide shopping cart if out of stock. Separate by comma (no spaces)"   
             %tr{:class => "form-group"}
                 %td
-                    %h6 Products
+                    %h6 
+                        Products (SKUs)
+                        %span{ :style => "color: red"} &#x2a;
                 %td
-                    = f.text_field :products, :class => "form-control" placeholder: "All other BR products. Separate by comma (no spaces)"           
+                    = f.text_field :products, :class => "form-control", placeholder: "All other BR products. Separate by comma (no spaces)"           
       
             %tr{:class => "form-group"}
                 %td

@@ -42,7 +42,8 @@
       = @project.time
    %p 
       %h4 Main Image:
-      = image_tag(@project.main_image, width: 400)
+      - if @project.mainimage
+         = image_tag(@project.main_image, width: 400)
    %p 
       %h4 Step Images:
    - @project.step_images.each do |img|

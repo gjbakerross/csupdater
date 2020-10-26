@@ -32,6 +32,9 @@
     <% @projects.each do |project| %>
       <tr>
         <th scope="row"><%= link_to project.title, project %></th>
+        <td class="text-info"><% if !project.products.empty?%>
+            <%= "Has Products"%>
+            <% end %>
         <td><%= link_to 'Edit products', edit_project_path(project) %></td>
       </tr>
     <% end %>
