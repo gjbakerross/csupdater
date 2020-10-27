@@ -10,7 +10,11 @@
       <li class="nav-item navbar-text"><%= link_to 'Upload new product data', products_path, :class => "nav-link h5" %></li>
       <li class="nav-item navbar-text">
         <%=link_to(export_projects_url, :class => "nav-link", target: :_blank, :onclick => 'window.location.reload();') do%>
-          <h5>Export projects <span class="badge badge-primary badge-pill"><%=(Project.where(created_at:(Export.last.created_at)...Time.now).count) %></span></h5>
+          <h5>Export projects <span class="badge badge-primary badge-pill">
+          <% if !Project.all.empty?%>
+          <%=(Project.where(created_at:(Export.last.created_at)...Time.now).count) %>
+          <%end%>
+          </span></h5>
         <% end%>
       </li>
       <li class="nav-item navbar-text"><%= link_to 'Export products', export_products_url, :class => "nav-link h5", target: :_blank%></li>
