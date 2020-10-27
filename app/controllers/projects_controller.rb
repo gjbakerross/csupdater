@@ -21,6 +21,16 @@ class ProjectsController < ApplicationController
   def edit
   end
 
+  def import
+    
+
+  def project_import
+    uploaded_file = params[:project_csv]
+    Project.import_projects(uploaded_file)
+    redirect_to projects_url
+  end
+  end
+
   def export_projects
     
     @projects = Project.where(created_at:(Export.last.created_at)...Time.now)
@@ -88,7 +98,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:search, :title,:uniqueid,:intro, :main_image,:template, :supervision, :products, :core_products, :categories, :level,:time,:how_to_make, :what_youll_need, :tip,:tags, :language_id, :youtube, step_images:[])
+      params.require(:project).permit(:search, :title,:uniqueid,:intro, :main_image,:template, :supervision, :products, :core_products, :categories, :level,:time,:how_to_make, :what_youll_need, :tip,:tags, :language_id, :youtube, :project_csv, step_images:[])
     end
 
     

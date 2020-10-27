@@ -7,6 +7,7 @@
   <div class="collapse navbar-collapse nav-fill justify-content-center">  
     <ul class="navbar-nav justify-content-center ">
       <li class="nav-item navbar-text"><%= link_to 'Add a new project', new_project_path, :class => "nav-link h5" %></li>
+      <li class="nav-item navbar-text"><%= link_to 'Upload projects', products_path, :class => "nav-link h5" %></li>
       <li class="nav-item navbar-text"><%= link_to 'Upload new product data', products_path, :class => "nav-link h5" %></li>
       <li class="nav-item navbar-text">
         <%=link_to(export_projects_url, :class => "nav-link", target: :_blank, :onclick => 'window.location.reload();') do%>
@@ -36,7 +37,7 @@
     <% @projects.each do |project| %>
       <tr>
         <th scope="row"><%= link_to project.title, project %></th>
-        <td class="text-info"><% if !project.products.empty?%>
+        <td class="text-info"><% if project.products.present?%>
             <%= "Has Products"%>
             <% end %>
         <td><%= link_to 'Edit products', edit_project_path(project) %></td>

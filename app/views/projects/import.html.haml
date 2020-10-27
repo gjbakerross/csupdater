@@ -1,0 +1,23 @@
+.container
+
+  = image_tag("default-creative-station.jpg", class: "mx-auto pt-4 d-block")
+  
+  %h1{:class => "display-4 mx-auto py-4"} Project Upload
+
+  = form_with url: project_import_url do |f|
+    %table{:class => "w-100", :style => "border-collapse:separate; border-spacing:0 1rem"}
+      %tr{:class => "form-group"}
+        %td
+          %h6 Project File
+        %td 
+          = f.file_field :project_csv, class: "form-control-file"
+      %tr
+        %td  
+      %tr{:class => "form-group"}
+        %td
+        %td
+          = f.submit "Save", class: "btn btn-primary" 
+
+  %br
+  %br
+  = link_to 'All projects', projects_path, :class => "text-primary h5"   

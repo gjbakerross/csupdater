@@ -14,14 +14,16 @@
       = @project.language.name
    %p
       %h4 Categories:
-      - @project.categories.split(",").each do |c| 
-         = c
-         %br
+      - if @project.categories
+         - @project.categories.split(",").each do |c| 
+            = c
+            %br
    %p
       %h4 Tags:
-      - @project.tags.split(",").each do |t| 
-         = t
-         %br
+      - if @project.tags
+         - @project.tags.split(",").each do |t| 
+            = t
+            %br
    %p 
       %h4 How to Make:   
       != @project.how_to_make 
@@ -42,13 +44,23 @@
       = @project.time
    %p 
       %h4 Main Image:
+      %p   
+         = @project.mainimage
       - if @project.mainimage
          = image_tag(@project.main_image, width: 400)
+      
    %p 
       %h4 Step Images:
+      %p
+         = @project.image1
+      %p   
+         = @project.image2
+      %p   
+         = @project.image3   
    - @project.step_images.each do |img|
       %p
          = image_tag(img, width:300)
+     
    %p
       = link_to 'Edit Products', edit_project_path(@project), class: "text-primary h5"
    %p

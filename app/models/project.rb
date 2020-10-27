@@ -34,7 +34,9 @@ class Project < ApplicationRecord
 
     
     def add_country_to_id
-        self.uniqueid = self.uniqueid + "_#{self.language.code}"
+        if !self.uniqueid.include?("_#{self.language.code}")
+            self.uniqueid = self.uniqueid + "_#{self.language.code}"
+        end
     end
     
     def format_instructions
@@ -45,21 +47,24 @@ class Project < ApplicationRecord
     end
 
     def format_skus
-        skulist = self.products.split(",")
-        shoppinglist=[]
-        skulist.each do |item|
-            product = Product.find_by_sku(item) 
-            if product
-                shoppinglist.push("<a href=\"#{product.url}\">#{product.title}</a>")
+        if self.products.present?
+            skulist = self.products.split(",")
+            shoppinglist=[]
+            skulist.each do |item|
+                product = Product.find_by_sku(item) 
+                if product
+                        shoppinglist.push("<a href=\"#{product.url}\">#{product.title}</a>")
+                end
             end
         end
-        
+
         if self.what_youll_need.present?
             shoppinglist = shoppinglist.join(",") 
             shoppinglist += "," + self.what_youll_need
             self.add_what_youll_need
         end
-        if !shoppinglist.empty?
+
+        if shoppinglist.present?
             self.shopping_list = self.format_list(shoppinglist ,"unordered",",") 
         end   
     end
@@ -148,6 +153,19 @@ class Project < ApplicationRecord
           end
         end
     end
+
+    def self.import_projects (csv)
+        csv_text = File.read(csv)
+        parsed_text = CSV.parse(csv_text, :headers => true)
+        parsed_text.each do |row|
+            p = Project.new
+            p.title = row[0]
+            p.uniqueid = row['uniqueid']
+            p.language = Language.first
+            p.save
+        end
+    end
+
   
 
     
