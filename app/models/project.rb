@@ -149,7 +149,9 @@ class Project < ApplicationRecord
           csv << attributes
     
           all.each do |project|
-            csv << attributes.map{ |attr| project.send(attr) }
+            if !project.products.empty?
+                csv << attributes.map{ |attr| project.send(attr) }
+            end
           end
         end
     end
