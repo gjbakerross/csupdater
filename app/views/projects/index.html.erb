@@ -8,14 +8,7 @@
 
 
 
-<div style="float:left" class="mb-3"> <%= link_to 'Add a new project', new_project_path, class: "text-info h3" %></div>
-<div style="float:right" class="mb-3">
-  <%= form_tag(projects_path, method: :get) do %>
-    <%= text_field_tag(:search, params[:search])%>
-    <%= submit_tag ("Search")%> 
-  <% end %> 
-</div>
-<div class="dropdown text-center mb-3">
+<div class="dropdown mb-3">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Web Team Actions
   </button>
@@ -32,6 +25,15 @@
     <%= link_to 'Export products', export_products_url, :class => "dropdown-item",  target: :_blank%>
   </div>
 </div>     
+<%= link_to 'Add a new project', new_project_path, class: "text-info h3 float-left"%>
+<div class="mb-3 float-right">
+  <%= form_tag(projects_path, method: :get) do %>
+    <%= text_field_tag(:search, params[:search])%>
+    <%= submit_tag ("Search")%> 
+  <% end %> 
+</div>
+<br>
+<br>
 <table class="table table-striped">
   <tbody>
     <% @projects.each do |project| %>
