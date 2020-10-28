@@ -3,34 +3,34 @@
 <div class="mx-auto"> 
   <%= image_tag("default-creative-station.jpg", class: "mx-auto my-4 d-block")%>
 </div>
-<nav class="navbar navbar-expand-md navbar-light nav-fill justify-content-center" style="background-color: #e3f2fd;" style="background-color: #e3f2fd;">
-  <div class="collapse navbar-collapse nav-fill justify-content-center">  
-    <ul class="navbar-nav justify-content-center ">
-      <li class="nav-item navbar-text"><%= link_to 'Add a new project', new_project_path, :class => "nav-link h5" %></li>
-      <li class="nav-item navbar-text"><%= link_to 'Upload new product data', products_path, :class => "nav-link h5" %></li>
-      <li class="nav-item navbar-text">
-        <%=link_to(export_projects_url, :class => "nav-link", target: :_blank, :onclick => 'window.location.reload();') do%>
-          <h5>Export projects 
-          <% if !Project.all.empty? && !Export.all.empty?%>
-            <span class="badge badge-primary badge-pill">
-              <%=(Project.where(created_at:(Export.last.created_at)...Time.now).count) %>
-            </span>
-          <%end%></h5>
-        <% end%>
-      </li>
-      <li class="nav-item navbar-text"><%= link_to 'Export products', export_products_url, :class => "nav-link h5", target: :_blank%></li>
-    </ul>
-  </div>
-</nav>
+<h1 class="display-4 mb-4 mx-auto text-center">All Projects</h1>
 
-<p id="notice" class="alert"><%= notice %></p>
 
-<h1 class="display-4 mb-3 mx-auto">All Projects</h1>
+
+
+<div style="float:left" class="mb-3"> <%= link_to 'Add a new project', new_project_path, class: "text-info h3" %></div>
 <div style="float:right" class="mb-3">
   <%= form_tag(projects_path, method: :get) do %>
     <%= text_field_tag(:search, params[:search])%>
     <%= submit_tag ("Search")%> 
   <% end %> 
+</div>
+<div class="dropdown text-center mb-3">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Web Team Actions
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <%= link_to 'Upload new product data', products_path, :class => "dropdown-item" %>
+    <%=link_to(export_projects_url, :class => "dropdown-item",  target: :_blank, :onclick => 'window.location.reload();') do%>
+    Export projects 
+          <% if !Project.all.empty? && !Export.all.empty?%>
+            <span class="badge badge-primary badge-pill">
+              <%=(Project.where(created_at:(Export.last.created_at)...Time.now).count) %>
+            </span>
+          <%end%>
+        <% end%>
+    <%= link_to 'Export products', export_products_url, :class => "dropdown-item",  target: :_blank%>
+  </div>
 </div>     
 <table class="table table-striped">
   <tbody>
