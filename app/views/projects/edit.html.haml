@@ -1,6 +1,6 @@
 .container
 
-    = image_tag("default-creative-station.jpg", class: "mx-auto pt-4 d-block")
+    = link_to image_tag("default-creative-station.jpg", class: "mx-auto pt-4 d-block"), root_path
     %h1{:class => "display-4 mx-auto py-4"} Edit associated Products
     = form_for @project, url: {action:"update"} do |f|
 
