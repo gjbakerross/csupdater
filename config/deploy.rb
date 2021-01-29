@@ -2,7 +2,7 @@
 lock "~> 3.14.1"
 
 set :application, "csupdater"
-set :repo_url, "git@github.com:gjbakerross/csupdater.git"
+set :repo_url, "git@github.com:gjbakerross/insideremail.git"
 set :ssh_options, {:forward_agent => true, keys: "/home/gjeffery/.ssh/id_rsa"}
 set :linked_files, %w{config/master.key}
 
@@ -47,3 +47,14 @@ set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+desc 'Runs rake db:seed'
+task :seed => [:set_rails_env] do
+  on primary fetch(:migration_role) do
+    within release_path do
+      with rails_env: fetch(:rails_env) do
+        execute :rake, "db:seed"
+      end
+    end
+  end
+end
