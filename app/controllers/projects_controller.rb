@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
     
     @projects = Project.where(created_at:(Export.last.created_at)...Time.now)
     # @projects = Project.all
-    send_data @projects.to_project_csv, filename: "projects-#{Date.today}.csv"
+    send_data @projects.to_project_csv, filename: "projects-#{Date.today}.csv" , disposition: "attachment", type: "text/csv"
     # download_images(@projects)
     Export.create
     # redirect_to action: "index" and return 
@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
   def export_products
     # redirect_to :index
     @projects = Project.all
-    send_data @projects.to_product_csv, filename: "product-#{Date.today}.csv"
+    send_data @projects.to_product_csv, filename: "product-#{Date.today}.csv", disposition: "attachment", type: "text/csv"
     
   end
 

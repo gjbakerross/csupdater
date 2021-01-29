@@ -2,7 +2,7 @@
 lock "~> 3.14.1"
 
 set :application, "csupdater"
-set :repo_url, "git@github.com:gjbakerross/insideremail.git"
+set :repo_url, "git@github.com:gjbakerross/csupdater.git"
 set :ssh_options, {:forward_agent => true, keys: "/home/gjeffery/.ssh/id_rsa"}
 set :linked_files, %w{config/master.key}
 
