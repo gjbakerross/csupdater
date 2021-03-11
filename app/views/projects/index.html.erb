@@ -28,7 +28,9 @@
 <%= link_to 'Add a new project', new_project_path, class: "text-info h3 float-left"%>
 <div class="mb-3 float-right">
   <%= form_tag(projects_path, method: :get) do %>
-    <%= text_field_tag(:search, params[:search])%>
+    <%= text_field_tag("search[search]")%>
+    <%= check_box_tag('search[noproducts]')%>
+     <%= label_tag :noproducts, "Show Only Projects without Products" %>
     <%= submit_tag ("Search")%> 
   <% end %> 
 </div>

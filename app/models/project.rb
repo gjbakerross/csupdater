@@ -118,8 +118,17 @@ class Project < ApplicationRecord
     end
 
     def self.search(search)
+        puts search
         if search
-            project = Project.where("LOWER(title) LIKE LOWER(?)", "%#{search}%")
+            searchterm = search["search"]
+            productfilter = search["noproducts"]
+        end
+        if searchterm && productfilter.nil?
+            project = Project.where("LOWER(title) LIKE LOWER(?)", "%#{search["search"]}%")
+        elsif productfilter == "1" && searchterm.empty?
+            project = Project.where(products: nil)
+        elsif productfilter == "1" && searchterm
+            project = Project.where("LOWER(title) LIKE LOWER(?)", "%#{search["search"]}%").where(products:nil)
         else
             Project.all
         end    
